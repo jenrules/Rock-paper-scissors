@@ -16,12 +16,15 @@ namespace RockPaperScissorsLizardSpock
         {
             Rules rules = new Rules();
             rules.LearnRules();
-            GetPlayers();
             Player player = new Player();
+            GetPlayers(player);
             Human human = new Human();
+            human.MakeMove();
+            Computer computer = new Computer();
+            computer.MakeMove();
             DetermineWinner(player);
          }
-              public void GetPlayers()
+              public void GetPlayers(Player player)
         {
             Console.WriteLine("Choose one or two players");
             Console.WriteLine("Type 'one' or 'two'");
@@ -41,7 +44,7 @@ namespace RockPaperScissorsLizardSpock
             else
             {
                 Console.WriteLine("Invalid response. Write 'one' or 'two'");
-                GetPlayers();
+                GetPlayers(player);
             }
         }
         public void RunGame()
@@ -50,6 +53,7 @@ namespace RockPaperScissorsLizardSpock
             {
                 playerOne.MakeMove();
                 playerTwo.MakeMove();
+
                 Console.WriteLine("Keep playing until someone wins two rounds.");
             }
         }
@@ -87,7 +91,14 @@ namespace RockPaperScissorsLizardSpock
     }
         public void GetScore()
         {
-            
+            if (playerOne.score > playerTwo.score)
+            {
+                Console.WriteLine("Player One Wins Game!");
+            }
+            else if (playerOne.score < playerTwo.score)
+            {
+                Console.WriteLine("Player Two Wins Game!");
+            }
         }
     }
 }
