@@ -10,7 +10,8 @@ namespace RockPaperScissorsLizardSpock
     {
         Player playerOne = new Player();
         Player playerTwo = new Player();
-        List<string> moves = new List<string> { "Rock", "Paper", "Scissors", "Lizard", "Spock" };
+        List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
+
         public void StartGame()
         {
             Rules rules = new Rules();
@@ -18,24 +19,9 @@ namespace RockPaperScissorsLizardSpock
             GetPlayers();
             Player player = new Player();
             Human human = new Human();
-            human.MakeMove();
-            Computer computer = new Computer();
-            computer.MakeMove();
-            player.GetScore();
-            GetScore();
-            DetermineWinner();
+            DetermineWinner(player);
          }
-        
-        public void RunGame()
-        {
-            while (playerOne.score < 2 && playerTwo.score < 2)
-                
-             {
-                Console.WriteLine("Keep playing until someone wins two rounds.");
-             }
-        }
-
-        public void GetPlayers()
+              public void GetPlayers()
         {
             Console.WriteLine("Choose one or two players");
             Console.WriteLine("Type 'one' or 'two'");
@@ -58,45 +44,48 @@ namespace RockPaperScissorsLizardSpock
                 GetPlayers();
             }
         }
-
-        public void DetermineWinner()
+        public void RunGame()
         {
-            string playerOneMove = null;
-            string playerTwoMove = null;
-
-            if (playerOneMove == playerTwoMove)
+            while (playerOne.GetScore() < 2 && playerTwo.GetScore() < 2)
+            {
+                playerOne.MakeMove();
+                playerTwo.MakeMove();
+                Console.WriteLine("Keep playing until someone wins two rounds.");
+            }
+        }
+        public void DetermineWinner(Player player)
+        {
+            if (playerOne.move == playerTwo.move)
             {
                 Console.WriteLine("Tie game.");
-                Console.WriteLine("Player one's hand was: {0}", playerOneMove);
-                Console.WriteLine("Player two's hand was: {0}", playerTwoMove);
+                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
+                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
             }
 
-            else if (playerOneMove == "Rock" && playerTwoMove == "Scissors" || playerOneMove == "Scissors" && playerTwoMove == "Paper" || playerOneMove == "Paper"
-                && playerTwoMove == "Rock" || playerOneMove == "Lizard" && playerTwoMove == "Rock" || playerOneMove == "Spock" && playerTwoMove == "Paper")
+            else if (playerOne.move == "Rock" && playerTwo.move == "Scissors" || playerOne.move == "Scissors" && playerTwo.move == "Paper" || playerOne.move == "Paper"
+                && playerTwo.move == "Rock" || playerOne.move == "Lizard" && playerTwo.move == "Rock" || playerOne.move == "Spock" && playerTwo.move == "Paper")
             {
                 Console.WriteLine("Player two wins!");
-                Console.WriteLine("Player one's hand was: {0}", playerOneMove);
-                Console.WriteLine("Player two's hand was: {0}", playerTwoMove);
+                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
+                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
             }
 
-            else if (playerOneMove == "Rock" && playerTwoMove == "Paper" || playerOneMove == "Scissors" && playerTwoMove == "Rock" || playerOneMove == "Paper"
-                && playerTwoMove == "Scissors" || playerOneMove == "Lizard" && playerTwoMove == "Paper" || playerOneMove == "Spock" && playerTwoMove == "Scissors")
+            else if (playerOne.move == "Rock" && playerTwo.move == "Paper" || playerOne.move == "Scissors" && playerTwo.move == "Rock" || playerOne.move == "Paper"
+                && playerTwo.move == "Scissors" || playerOne.move == "Lizard" && playerTwo.move == "Paper" || playerOne.move == "Spock" && playerTwo.move == "Scissors")
             {
                 Console.WriteLine("Player one wins!");
-                Console.WriteLine("Player one's hand was: {0}", playerOneMove);
-                Console.WriteLine("Player two's hand was: {0}", playerTwoMove);
+                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
+                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
             }
 
             else
             {
                 Console.WriteLine("Invalid Entry. Please write 'Rock,' 'Paper,' 'Scissors,' 'Lizard,' or 'Spock.'");
                 Console.WriteLine("Please try again: ");
-                playerOneMove = Console.ReadLine();
-                playerTwoMove = Console.ReadLine();
-                DetermineWinner();
+                player.move = Console.ReadLine();
             }
-        }
-            public void GetScore()
+    }
+        public void GetScore()
         {
             
         }

@@ -8,13 +8,11 @@ namespace RockPaperScissorsLizardSpock
 {
     class Computer : Player
     {
-        Random random = new Random();
-        public string move;
+        List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
+        Random pick = new Random();
         public override void MakeMove()
         {
-            List<string> moves = new List<string> { "Rock", "Paper", "Scissors", "Lizard", "Spock" };
-            int randX = random.Next(0, 5);
-            move = randX.ToString(move);
-         }
+            move = moves[pick.Next(0, 5)];
+        }
     }
 }

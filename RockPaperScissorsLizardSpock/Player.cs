@@ -8,19 +8,21 @@ namespace RockPaperScissorsLizardSpock
 {
     public class Player
     {
-              
-        List <string> moves = new List<string> { "Rock", "Paper", "Scissors", "Lizard", "Spock" };
-
-        public int score;
-        public int playerMove;
+        public int score = 0;
+        public string move;
 
         public virtual void MakeMove()
         {
             Console.WriteLine("Error.You should see player move.");
+            throw new Exception();
         }
         public int GetScore()
         {
             return score;
+        }
+        public void AddPointsToScore()
+        {
+            score++;
         }
     }
 }

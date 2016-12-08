@@ -8,29 +8,27 @@ namespace RockPaperScissorsLizardSpock
 {
     class Human : Player
     {
-        public int move;
-        List<string> moves = new List<string> { "Rock", "Paper", "Scissors", "Lizard", "Spock" };
-        public override void MakeMove()
+        List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
+            public override void MakeMove()
             {
             Console.WriteLine("Please choose 'Rock,' 'Paper,' Scissors,' 'Lizard,' 'Spock.'");
-            string makeMove = Console.ReadLine().ToLower();
-
-            switch (makeMove)
+            string userMove = Console.ReadLine().ToLower();
+            switch (userMove)
             {
                 case "rock":
-                    move = playerMove;
+                    move = userMove;
                     break;
                 case "paper":
-                    move = playerMove;
+                    move = userMove;
                     break;
                 case "scissors":
-                    move = playerMove;
+                    move = userMove;
                     break;
                 case "lizard":
-                    move = playerMove;
+                    move = userMove;
                     break;
                 case "spock":
-                    move = playerMove;
+                    move = userMove;
                     break;
                 default:
                     Console.WriteLine("Invalid response. Please choose a valid response.");
