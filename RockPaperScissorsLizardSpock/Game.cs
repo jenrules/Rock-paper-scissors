@@ -8,23 +8,50 @@ namespace RockPaperScissorsLizardSpock
 {
     class Game
     {
-        Player playerOne = new Player();
-        Player playerTwo = new Player();
+        Player playerOne;
+        Player playerTwo;
         List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
 
         public void StartGame()
         {
             Rules rules = new Rules();
             rules.LearnRules();
-            Player player = new Player();
-            GetPlayers(player);
-            Human human = new Human();
-            human.MakeMove();
-            Computer computer = new Computer();
-            computer.MakeMove();
-            DetermineWinner(player);
-         }
-              public void GetPlayers(Player player)
+            GetPlayers();
+            RunGame();
+        }
+        public void RunGame()
+        {
+            while (playerOne.GetScore() < 2 && playerTwo.GetScore() < 2)
+            {
+                playerOne.MakeMove();
+                playerTwo.MakeMove();
+                DetermineWinner();
+
+                Console.WriteLine("Keep playing until someone wins two rounds.");
+            }
+            GetScore();
+            ChooseRestart();
+        }
+        public void ChooseRestart()
+        {
+            Console.WriteLine("Would you like to play another game? Type 'yes' or 'no'.");
+            string userInput = Console.ReadLine().ToLower();
+            if (userInput == "yes")
+            {
+                StartGame();
+            }
+            else if (userInput == "no")
+            {
+                Console.WriteLine("Have a nice day");
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("Error. Please write 'yes' or 'no'.");
+                ChooseRestart();
+            }
+        }
+        public void GetPlayers()
         {
             Console.WriteLine("Choose one or two players");
             Console.WriteLine("Type 'one' or 'two'");
@@ -44,51 +71,9 @@ namespace RockPaperScissorsLizardSpock
             else
             {
                 Console.WriteLine("Invalid response. Write 'one' or 'two'");
-                GetPlayers(player);
+                GetPlayers();
             }
         }
-        public void RunGame()
-        {
-            while (playerOne.GetScore() < 2 && playerTwo.GetScore() < 2)
-            {
-                playerOne.MakeMove();
-                playerTwo.MakeMove();
-
-                Console.WriteLine("Keep playing until someone wins two rounds.");
-            }
-        }
-        public void DetermineWinner(Player player)
-        {
-            if (playerOne.move == playerTwo.move)
-            {
-                Console.WriteLine("Tie game.");
-                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
-                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
-            }
-
-            else if (playerOne.move == "Rock" && playerTwo.move == "Scissors" || playerOne.move == "Scissors" && playerTwo.move == "Paper" || playerOne.move == "Paper"
-                && playerTwo.move == "Rock" || playerOne.move == "Lizard" && playerTwo.move == "Rock" || playerOne.move == "Spock" && playerTwo.move == "Paper")
-            {
-                Console.WriteLine("Player two wins!");
-                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
-                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
-            }
-
-            else if (playerOne.move == "Rock" && playerTwo.move == "Paper" || playerOne.move == "Scissors" && playerTwo.move == "Rock" || playerOne.move == "Paper"
-                && playerTwo.move == "Scissors" || playerOne.move == "Lizard" && playerTwo.move == "Paper" || playerOne.move == "Spock" && playerTwo.move == "Scissors")
-            {
-                Console.WriteLine("Player one wins!");
-                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
-                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
-            }
-
-            else
-            {
-                Console.WriteLine("Invalid Entry. Please write 'Rock,' 'Paper,' 'Scissors,' 'Lizard,' or 'Spock.'");
-                Console.WriteLine("Please try again: ");
-                player.move = Console.ReadLine();
-            }
-    }
         public void GetScore()
         {
             if (playerOne.score > playerTwo.score)
@@ -99,6 +84,51 @@ namespace RockPaperScissorsLizardSpock
             {
                 Console.WriteLine("Player Two Wins Game!");
             }
+            else if (playerOne.score == playerTwo.score)
+            {
+                Console.WriteLine("Tie Game - Everybody Wins!");
+            }
+        }
+        public void DetermineWinner()
+        {
+            if (playerOne.move == playerTwo.move)
+            {
+                Console.WriteLine("Tie game.");
+                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
+                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
+                playerOne.AddPointsToScore();
+                playerTwo.AddPointsToScore();
+            }
+
+             else if (playerOne.move == "scissors" && playerTwo.move == "rock" || playerOne.move == "paper" && playerTwo.move == "scissors" || playerOne.move == "rock"
+                && playerTwo.move == "paper" || playerOne.move == "Rock" && playerTwo.move == "lizard" || playerOne.move == "spock" && playerTwo.move == "paper" ||
+               playerOne.move == "rock" && playerTwo.move == "lizard" || playerOne.move == "scissors" && playerTwo.move == "spock" || playerOne.move == "lizard" &&
+               playerTwo.move == "spock" || playerOne.move == "spock" && playerTwo.move == "rock" || playerOne.move == "scissors" && playerTwo.move == "lizard")
+            {
+                Console.WriteLine("Player two wins!");
+                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
+                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
+                playerTwo.AddPointsToScore();
+            }
+
+            else if (playerOne.move == "paper" && playerTwo.move == "rock" || playerOne.move == "rock" && playerTwo.move == "scissors" || playerOne.move == "scissors"
+                && playerTwo.move == "paper" || playerOne.move == "lizard" && playerTwo.move == "paper" || playerOne.move == "spock" && playerTwo.move == "scissors"
+                || playerOne.move == "lizard" && playerTwo.move == "rock" || playerOne.move == "paper" && playerTwo.move == "spock" || playerOne.move == "spock"
+                && playerTwo.move == "lizard" || playerOne.move == "rock" && playerTwo.move == "spock" || playerOne.move == "lizard" && playerTwo.move == "scissors")
+            {
+                Console.WriteLine("Player one wins!");
+                Console.WriteLine("Player one's hand was: {0}", playerOne.move);
+                Console.WriteLine("Player two's hand was: {0}", playerTwo.move);
+                playerOne.AddPointsToScore();
+            }
+
+            else
+            {
+                Console.WriteLine("Invalid Entry. Please write 'Rock,' 'Paper,' 'Scissors,' 'Lizard,' or 'Spock.'");
+                Console.WriteLine("Please try again: ");
+                playerOne.move = Console.ReadLine();
+                playerTwo.move = Console.ReadLine();
+            }           
         }
     }
 }

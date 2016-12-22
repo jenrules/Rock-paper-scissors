@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace RockPaperScissorsLizardSpock
 {
     class Computer : Player
-    {
-        List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
+    {        
         Random pick = new Random();
         public override void MakeMove()
         {
+            List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
             move = moves[pick.Next(0, 5)];
         }
     }

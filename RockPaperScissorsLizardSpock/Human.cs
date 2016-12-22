@@ -8,7 +8,6 @@ namespace RockPaperScissorsLizardSpock
 {
     class Human : Player
     {
-        List<string> moves = new List<string> { "rock", "paper", "scissors", "lizard", "spock" };
             public override void MakeMove()
             {
             Console.WriteLine("Please choose 'Rock,' 'Paper,' Scissors,' 'Lizard,' 'Spock.'");

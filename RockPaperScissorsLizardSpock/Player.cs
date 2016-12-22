@@ -10,7 +10,6 @@ namespace RockPaperScissorsLizardSpock
     {
         public int score = 0;
         public string move;
-
         public virtual void MakeMove()
         {
             Console.WriteLine("Error.You should see player move.");
@@ -23,6 +22,10 @@ namespace RockPaperScissorsLizardSpock
         public void AddPointsToScore()
         {
             score++;
+        }
+        public string GetMove()
+        {
+        return move;
         }
     }
 }
